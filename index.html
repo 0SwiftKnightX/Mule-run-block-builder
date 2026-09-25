@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Vehicle Sandbox Builder — Build 001</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game"></div>
+  <div id="grain"></div>
+
+  <section id="start" class="screen">
+    <div class="brand"><span>BUILD 001 //</span><h1>VEHICLE<br>SANDBOX</h1></div>
+    <p>A tactile construction workspace built around deliberate movement, deterministic snapping, and immediate feedback.</p>
+    <button id="startBtn" class="primary">ENTER WORKSHOP <b>→</b></button>
+    <div class="start-meta"><span>BUILD 001</span><span>CONSTRUCTION CORE</span><span>XR READY</span></div>
+  </section>
+
+  <header id="topbar" class="hidden">
+    <div class="logo">VEHICLE SANDBOX <i>/</i> <b id="modeLabel">ON FOOT</b></div>
+    <div id="objective">GO TO THE GARAGE <kbd>E</kbd></div>
+    <div class="top-actions"><button id="xrBtn" class="xr-btn" disabled>XR CHECKING</button><button id="helpBtn" class="icon-btn" aria-label="Controls">?</button></div>
+  </header>
+
+  <aside id="buildPanel" class="panel hidden">
+    <div class="panel-head"><div><small>GARAGE // 01</small><h2>BUILD MODE</h2></div><button id="closeBuild" class="icon-btn">×</button></div>
+    <div class="name-row"><input id="vehicleName" value="Rover-01" maxlength="18" aria-label="Vehicle name"><span id="massReadout">0 KG</span></div>
+    <div class="tabs"><button class="tab active" data-cat="structural">STRUCTURE</button><button class="tab" data-cat="vehicle">FUNCTION</button></div>
+    <div id="parts" class="parts"></div>
+    <div id="partInfo" class="part-info"></div>
+    <div id="selectionInfo" class="selection-info" aria-live="polite"><span>HELD</span><b>BASIC CUBE</b><small id="selectionDetail">READY TO PLACE</small></div>
+    <div class="build-actions">
+      <button id="undoBtn">↶ UNDO</button><button id="redoBtn">↷ REDO</button>
+      <button id="rotateBtn">⟳ ROTATE</button><button id="deleteBtn">⌫ REMOVE</button>
+    </div>
+    <div class="save-row"><button id="clearBtn">CLEAR</button><button id="saveBtn" class="primary">SAVE BLUEPRINT</button></div>
+    <button id="finishBtn" class="finish">EXIT BUILD MODE <b>→</b></button>
+  </aside>
+
+  <aside id="vehicleHud" class="vehicle-hud hidden">
+    <div class="hud-name"><small>ACTIVE VEHICLE</small><b id="hudVehicleName">ROVER-01</b></div>
+    <div class="speed"><strong id="speedValue">000</strong><span>KM/H</span></div>
+    <div class="meters"><label>ENGINE <i id="engineText">100%</i><span><b id="engineBar"></b></span></label><label>FUEL <i id="fuelText">100%</i><span><b id="fuelBar"></b></span></label></div>
+  </aside>
+
+  <div id="crosshair" class="hidden"><i></i></div>
+  <div id="toast"></div>
+  <div id="prompt" class="hidden"><kbd>E</kbd><span></span></div>
+  <div id="buildHint" class="hidden">CLICK: PLACE · SHIFT+CLICK: SELECT/MOVE · ALT/RIGHT DRAG: ORBIT · WHEEL: ZOOM · R: ROTATE</div>
+
+  <aside id="buildReadout" class="build-readout hidden" aria-live="polite">
+    <div id="validityIcon" class="validity-icon"><i></i></div>
+    <div><small id="buildActionLabel">PLACEMENT READY</small><b id="buildReason">SNAPPED TO GRID</b><span id="buildCoords">X 00 · Y 00 · Z 00 · 0°</span></div>
+  </aside>
+  <nav id="buildToolbar" class="build-toolbar hidden" aria-label="Build controls">
+    <button id="focusBtn"><i>◎</i><span>FOCUS</span></button>
+    <button id="rotateLeftBtn"><i>↶</i><span>ROTATE</span></button>
+    <button id="placeBtn" class="place-action"><i>＋</i><span>PLACE</span></button>
+    <button id="cancelMoveBtn"><i>×</i><span>CANCEL</span></button>
+    <button id="toolbarRemoveBtn"><i>⌫</i><span>REMOVE</span></button>
+  </nav>
+
+  <div id="mobile" class="hidden">
+    <div id="stick"><i></i></div>
+    <div id="lookZone"></div>
+    <button id="mobileE">E</button><button id="mobileJump">↑</button>
+  </div>
+
+  <dialog id="help">
+    <button id="helpClose" class="icon-btn">×</button>
+    <small>FIELD MANUAL // CONTROLS</small><h2>HOW TO PLAY</h2>
+    <div class="help-grid"><section><b>ON FOOT</b><p><kbd>WASD</kbd> Move</p><p><kbd>MOUSE</kbd> Look</p><p><kbd>SPACE</kbd> Jump</p><p><kbd>E</kbd> Interact / enter</p></section><section><b>BUILDING</b><p><kbd>CLICK</kbd> Place</p><p><kbd>SHIFT CLICK</kbd> Select / move</p><p><kbd>ALT DRAG</kbd> Orbit camera</p><p><kbd>R / DEL</kbd> Rotate / remove</p></section><section><b>DRIVING</b><p><kbd>W/S</kbd> Throttle / brake</p><p><kbd>A/D</kbd> Steer</p><p><kbd>SPACE</kbd> Handbrake</p><p><kbd>E</kbd> Exit vehicle</p></section></div>
+    <p class="touch-note">Touch: drag the construction view to orbit, pinch to zoom/pan, tap a placed part to grab it, then use the large action dock. XR: point and trigger to place; squeeze to grab or rotate.</p>
+  </dialog>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
